@@ -1,0 +1,50 @@
+name: Build and Release Java Application
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers when a new tag starting with 'v' is created, e.g., v1.0.0
+
+permissions:
+  contents: write # Required to create releases
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven' # Caches dependencies for faster builds
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Get JAR file name
+        id: get_jar_name
+        run: |
+          # Find the built JAR file (works for most Maven projects)
+          JAR_FILE=$(find target/ -name "*.jar" -not -name "*-sources.jar" -not -name "*-javadoc.jar" -print -quit)
+          if [ -z "$JAR_FILE" ]; then
+            echo "No JAR file found in target/ directory"
+            exit 1
+          fi
+          echo "jar_file=$JAR_FILE" >> $GITHUB_OUTPUT
+
+      - name: Create Release and Upload JAR
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.get_jar_name.outputs.jar_file }}
+          name: Release ${{ github.ref_name }}
+          tag_name: ${{ github.ref }}
+          body: |
+            Please refer to [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md) for details on this release.
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

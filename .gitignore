@@ -1,0 +1,70 @@
+# Project specific files
+
+*.xls
+*.csv
+*.txt
+
+# Visual Studio Code
+.vscode/launch.json
+
+# Maven target directory
+/target/
+
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Maven wrapper files (optional, if you want to ignore wrapper jar)
+.mvn/wrapper/maven-wrapper.jar
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# IDE files
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Compiled class files
+*.class
+
+# Ignore environment variable files
+.env
+.env*
+
+# Backup files
+*~
+*.swp
+*.swo
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
