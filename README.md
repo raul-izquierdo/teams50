@@ -43,6 +43,10 @@ Run the tool whenever the classroom roster changes or whenever you want to verif
 
 > **Note:** This process only applies to students who have accepted the invitation to join the classroom and therefore already have a _username_ in the roster.
 
+If you want to check what changes would be made without actually performing them, run the tool with the `--dry-run` option. This will display the actions that would be performed without making any changes.
+```bash
+java -jar teams50.jar --dry-run
+```
 
 ## Removing Teams
 
@@ -72,6 +76,7 @@ Flags:
 - **-o [organization]**: GitHub organization name associated with the classroom. If not provided, it will try to read from the CLASSROOM_ORG environment variable or from a `.env` file.
 - **-c [classroom]**: GitHub classroom name. If not provided, it will try to read from the CLASSROOM_NAME environment variable or from a `.env` file.
 - **-s [solutions-org]**: GitHub organization where the solutions are stored. If not provided, it will try to read from the SOLUTIONS_ORG environment variable or from a `.env` file.
+- **--dry-run**: Do not perform any changes; only read and print the actions that would be performed.
 - **-h, --help**: Show help.
 - **-V, --version**: Show version.
 
