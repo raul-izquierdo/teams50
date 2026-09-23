@@ -16,7 +16,7 @@ public class Arguments {
     @Option(names = "-o", description = "GitHub organization for the Classroom 50 repository. If not provided, it will try to read from the CLASSROOM_ORG environment variable or from a '.env' file.")
     public String classroomOrg;
 
-    @Option(names = "-c", description = "GitHub classroom name. If not provided, it will try to read from the CLASSROOM_NAME environment variable or from a '.env' file.")
+    @Option(names = "-c", description = "Classroom name. If not provided, it will try to read from the CLASSROOM_NAME environment variable or from a '.env' file.")
     public String classroom;
 
     @Option(names = "-s", description = "GitHub organization where the solutions are stored. If not provided, it will try to read from the SOLUTIONS_ORG environment variable or from a '.env' file.")
