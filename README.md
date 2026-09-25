@@ -71,11 +71,11 @@ java -jar teams50.jar -h
 
 ## When to run _teams50_
 
-To add a member to a _team_, GitHub requires a _username_. This information is not initially available in the Classroom 50 roster if students were added by email. However, Classroom 50 automatically adds the student's GitHub _username_ to the roster once they accept the invitation to join the classroom.
+To add a member to a _team_, GitHub requires a _username_, which _teams50_ also needs. This information is not initially available in the Classroom 50 roster when students are added by email. However, Classroom 50 automatically adds each student's GitHub _username_ to the roster once they **accept the invitation** to join the classroom.
 
-_teams50_ needs the _username_ to add students to their corresponding team. Therefore, students must have accepted the invitation before they can be added to their _team_.
+Ideally, _teams50_ should therefore be run after all students have accepted the invitation. In practice, however, some students may never accept it. After allowing a reasonable amount of time for students to accept their invitations, you can run _teams50_ to add the students who have already accepted to their respective groups.
 
-Ideally, _teams50_ should be run after all students have accepted the invitation so that everyone has a _username_ in the roster. However, if it is run earlier, _teams50_ will add the students who already have a _username_ to their corresponding team and will display a warning indicating which students were not added because they do not yet have a _username_. _teams50_ can be run as many times as needed to add any students who accepted the invitation since the last execution.
+In any case, you can run _teams50_ as often as needed. Each run adds to the appropriate groups any students who have accepted the invitation since the previous run.
 
 ## Using the Application
 
