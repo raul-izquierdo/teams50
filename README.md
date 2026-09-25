@@ -12,18 +12,17 @@ This tool is implemented in Java and requires JDK 21 or later.
 
 This tool is intended for instructors using the [Classroom 50](https://github.com/foundation50/classroom50/wiki) platform. That platform handles assignment submission and collection, but it does not manage the later delivery of exercise solutions.
 
-_teams50_ is designed for teachers who want to distribute solutions group by group during the course. To do that, they need to create one team for each lab group so they can grant access to the solutions, or to any other repository on GitHub.
+_teams50_ is designed for teachers who want to distribute solutions group by group during the course. To do that, they need to create one team for each lab group so they can grant them access to the solutions repositories or to any other repository on GitHub.
 
-## The problem
+## The Problem
 
 At the beginning of the course, the teacher has to create the teams and assign each student one by one using the GitHub web interface. To do this, they need each student's GitHub _username_ (email alone is not enough). This information is usually not available to the teacher, because each student has their own personal GitHub account. Therefore, it must be gathered before they can be invited to the teams.
 
-Once that obstacle has been overcome, the teacher must keep the teams up to date throughout the course. Especially at the start of the term, it is common for students to enroll, leave, or change lab groups. Each time this happens, the teacher has to inspect the roster and determine what needs to be updated in each GitHub team, which is tedious and error-prone.
+Once that obstacle has been overcome, the teacher must keep the teams up to date throughout the course. Especially at the start of the term, it is common for students to enroll, leave, or change lab groups. Each time this happens, the teacher has to inspect the _Classroom 50_ roster and determine what needs to be updated in each GitHub team, which is tedious and error-prone.
 
 ## How does the app simplify this process?
 
 _teams50_ automates the whole process without requiring teacher intervention:
-
 - It connects to Classroom 50 to fetch the student roster, including each student's GitHub _username_ and lab group (called a _section_ in Classroom 50).
 - It uses that information to determine whether new teams need to be created for newly formed groups.
 - It updates the teams to reflect enrollments, drops, and group changes that have occurred during the course.
@@ -32,7 +31,7 @@ Once the teams are created, they can be used to grant students access to solutio
 
 ## Installation
 
-> ⚠️ This section is for those who want to use this tool independently. If you are going to use it together with the rest of the suite (recommended), follow the instructions in the suite's [main repository](https://github.com/raul-izquierdo/classroom-50-tools#configuration). You do not need to repeat these steps because they are already included there.
+> ⚠️ This section is for those who want to use this tool independently. If you are going to use it together with the rest of the toolkit (recommended), follow the instructions in the toolkit's [main repository](https://github.com/raul-izquierdo/classroom-50-tools#toolkit-installation). You do not need to repeat these steps because they are already included there.
 
 Download [teams50.jar](https://github.com/raul-izquierdo/teams50/releases/latest/download/teams50.jar) from the latest release of this repository.
 
@@ -48,9 +47,9 @@ java -jar teams50.jar -h
 
 ## Configuration
 
-> ⚠️ This section is for those who want to use this tool independently. If you are going to use it together with the rest of the suite (recommended), follow the instructions in the suite's [main repository](https://github.com/raul-izquierdo/classroom-50-tools#configuration). You do not need to repeat these steps because they are already included there.
+> ⚠️ This section is for those who want to use this tool independently. If you are going to use it together with the rest of the toolkit (recommended), follow the instructions in the toolkit's [main repository](https://github.com/raul-izquierdo/classroom-50-tools#toolkit-configuration). You do not need to repeat these steps because they are already included there.
 
-1. (Optional) Create a `.env` file with the organization name and the Classroom 50 API access token.
+1. (Optional) Create a `.env` file with the required environment variables.
 
     ```env
     CLASSROOM_NAME=<name of the Classroom 50 classroom>
@@ -62,7 +61,7 @@ java -jar teams50.jar -h
     This step is optional but strongly recommended, as it allows you to run _solutions50_ without specifying command-line flags. If you prefer not to create it, make sure to pass the appropriate command-line arguments.
 
     Here's how to obtain the values for the variables above:
-    - `CLASSROOM_NAME` and `CLASSROOM_ORG` can be obtained from the Classroom 50 web interface. The tools in this suite assume that a classroom has already been created and that you have access to it. If you have not created a classroom yet, please do so before proceeding.
+    - `CLASSROOM_NAME` and `CLASSROOM_ORG` can be obtained from the Classroom 50 web interface. The tools in this toolkit assume that a classroom has already been created and that you have access to it. If you have not created a classroom yet, please do so before proceeding.
 
         In the following image, the `CLASSROOM_ORG` is indicated by the red arrow, and the `CLASSROOM_NAME` by the blue arrow.
         ![alt text](img/parameters.png)
@@ -74,7 +73,7 @@ java -jar teams50.jar -h
 
 To add a member to a _team_, GitHub requires a _username_. This information is not initially available in the Classroom 50 roster if students were added by email. However, Classroom 50 automatically adds the student's GitHub _username_ to the roster once they accept the invitation to join the classroom.
 
-_teams50_ uses the _username_ to add students to their corresponding team. Therefore, students must have accepted the invitation before they can be added to their _team_.
+_teams50_ needs the _username_ to add students to their corresponding team. Therefore, students must have accepted the invitation before they can be added to their _team_.
 
 Ideally, _teams50_ should be run after all students have accepted the invitation so that everyone has a _username_ in the roster. However, if it is run earlier, _teams50_ will add the students who already have a _username_ to their corresponding team and will display a warning indicating which students were not added because they do not yet have a _username_. _teams50_ can be run as many times as needed to add any students who accepted the invitation since the last execution.
 
@@ -86,16 +85,12 @@ To run the application, execute the following command in a terminal:
 java -jar teams50.jar
 ```
 
-This downloads the current classroom roster from Classroom 50 and ensures that the organization storing the solutions has one _team_ for each lab group (_section_) found in the roster.
-
-- If a lab group in the roster does not have a corresponding _team_, a new _team_ is created.
-- Members who no longer belong to a lab group are removed from that _team_.
-- New members who now belong to a lab group are _invited_ to that _team_.
-    - Keep in mind that GitHub will send an email to the student inviting them to join the _team_. If they do not accept the invitation, they will not be added to the _team_ and will not have access to the solutions.
-
-Run the tool whenever the classroom roster changes or whenever you want to verify that everything is synchronized.
+This downloads the current classroom roster from Classroom 50 and ensures that the teams in the organization storing the solutions are synchronized with the lab groups in the roster.
+- Keep in mind that GitHub will send an email to the student **inviting** them to join the _team_. If they do not accept the invitation, they will not be added to the _team_ and will not have access to the solutions.
 
 > **Note:** This process only applies to students who have accepted the invitation to join the classroom and therefore already have a _username_ in the roster.
+
+Run the tool whenever the classroom roster changes or whenever you want to verify that everything is synchronized.
 
 If you want to check what changes would be made without actually performing them, run the tool with the `--dry-run` option. This will display the actions that would be taken without making any changes.
 
